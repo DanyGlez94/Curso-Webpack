@@ -1,7 +1,7 @@
 //Este archivo va a ser nuestro recurso principal
 
 const path = require('path'); //Para trabajar con archivos y rutas de directorios.
-//import {resolve} from 'path';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /** @type {import('webpack').Configuration} */ //Añade autocompletado a nuestro archivo de webpack
 
@@ -24,5 +24,12 @@ module.exports = { //creamos un módulo que se va a exportar
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            inject: true,
+            template: './public/index.html',
+            filename: './index.html'
+        })
+    ]
 }
