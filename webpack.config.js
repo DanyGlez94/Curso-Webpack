@@ -13,6 +13,7 @@ module.exports = { //creamos un módulo que se va a exportar
     output: { 
         path: path.resolve(__dirname, 'dist'), //Utilizamos el path que declaramos arriba, resolve() nos permite saber dónde se encuentra nuestro proyecto.
         filename: 'main.js', //Nombre del archivo final
+        assetModuleFilename: 'assets/images/[hash][ext][query]',
     },
     resolve: {
         extensions: ['.js'], //los archivos que webpack podrá leer
@@ -34,8 +35,26 @@ module.exports = { //creamos un módulo que se va a exportar
                 test: /\.png/,
                 type: 'asset/resource',
                 generator: { 
-                    filename: 'static/images/[hash][ext][query]', //Indicamos la carpeta donde queremos guardar las imágenes
+                    filename: 'assets/images/[hash][ext][query]', //Indicamos la carpeta donde queremos guardar las imágenes
                 },
+            },
+            {
+                test: /\.(woff|woff2)$/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/fonts/[name][ext][query]', //Indicamos dónde se va a guardar los archivos generados.
+                },
+                // use: { //Esto no lo usamos, porque el loader de fuentes ya viene integrado en Webpack 5
+                //     loader: 'url-loader',
+                //     options: {
+                //         limit: 10000,
+                //         mimetype: "application/font-woff",
+                //         name: "[name].[ext]",
+                //         outputPath: "./assets/fonts/",
+                //         publicPath: "./assets/fonts/",
+                //         esModule: false,
+                //     },
+                // },
             },
         ],
     },
@@ -46,7 +65,7 @@ module.exports = { //creamos un módulo que se va a exportar
             filename: './index.html'
         }),
         new MiniCssExtractPlugin(),
-        new CopyPlugin({
+        new CopyPlugin({ //Hace una copia de las imágenes de la carpeta src/assets/images a dir/assets/images
             patterns: [
                 {
                     from: path.resolve(__dirname, 'src', 'assets/images'),
