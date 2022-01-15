@@ -30,6 +30,13 @@ module.exports = { //creamos un módulo que se va a exportar
                 test: /\.s?css$|\.styl$/i,
                 use: [MiniCssExtractPlugin.loader,'css-loader','stylus-loader']
             },
+            {
+                test: /\.png/,
+                type: 'asset/resource',
+                generator: { 
+                    filename: 'static/images/[hash][ext][query]', //Indicamos la carpeta donde queremos guardar las imágenes
+                },
+            },
         ],
     },
     plugins: [
