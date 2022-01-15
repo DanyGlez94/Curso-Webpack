@@ -3,9 +3,10 @@
 const path = require('path'); //Para trabajar con archivos y rutas de directorios.
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { default: MiniCssExtractPlugin } = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 
-//** @type {import('webpack').Configuration} */ //Añade autocompletado a nuestro archivo de webpack
+/** @type {import('webpack').Configuration} */ //Añade autocompletado a nuestro archivo de webpack
 
 module.exports = { //creamos un módulo que se va a exportar
     entry: './src/index.js', //El punto de entrada de nuestra app
@@ -38,5 +39,13 @@ module.exports = { //creamos un módulo que se va a exportar
             filename: './index.html'
         }),
         new MiniCssExtractPlugin(),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'src', 'assets/images'),
+                    to: 'assets/images'
+                },
+            ],
+        }),
     ],
 };
