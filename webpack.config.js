@@ -2,8 +2,10 @@
 
 const path = require('path'); //Para trabajar con archivos y rutas de directorios.
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { default: MiniCssExtractPlugin } = require('mini-css-extract-plugin');
 
-/** @type {import('webpack').Configuration} */ //Añade autocompletado a nuestro archivo de webpack
+
+//** @type {import('webpack').Configuration} */ //Añade autocompletado a nuestro archivo de webpack
 
 module.exports = { //creamos un módulo que se va a exportar
     entry: './src/index.js', //El punto de entrada de nuestra app
@@ -12,7 +14,7 @@ module.exports = { //creamos un módulo que se va a exportar
         filename: 'main.js', //Nombre del archivo final
     },
     resolve: {
-        extensions: ['.js'] //los archivos que webpack podrá leer
+        extensions: ['.js'], //los archivos que webpack podrá leer
     },
     module: {
         rules: [
@@ -22,14 +24,19 @@ module.exports = { //creamos un módulo que se va a exportar
                 use: {
                     loader: 'babel-loader'
                 }
-            }
-        ]
+            },
+            {
+                test: /\.s?css$|\.styl$/i,
+                use: [MiniCssExtractPlugin.loader,'css-loader','stylus-loader']
+            },
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
             inject: true,
             template: './public/index.html',
             filename: './index.html'
-        })
-    ]
-}
+        }),
+        new MiniCssExtractPlugin(),
+    ],
+};
