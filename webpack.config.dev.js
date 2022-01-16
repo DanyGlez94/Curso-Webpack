@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { default: MiniCssExtractPlugin } = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const DotEnv = require('dotenv-webpack');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 
 /** @type {import('webpack').Configuration} */ //Añade autocompletado a nuestro archivo de webpack
@@ -85,6 +86,7 @@ module.exports = { //creamos un módulo que se va a exportar
             ],
         }),
         new DotEnv(),
+        new BundleAnalyzerPlugin(),
     ],
     devServer: {
         static: {
