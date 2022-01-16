@@ -17,6 +17,7 @@ module.exports = { //creamos un módulo que se va a exportar
         assetModuleFilename: 'assets/images/[hash][ext][query]',
     },
     mode: 'development',
+    watch: true,
     resolve: {
         extensions: ['.js'], //los archivos que webpack podrá leer
         alias: {
