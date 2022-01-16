@@ -19,6 +19,12 @@ module.exports = { //creamos un módulo que se va a exportar
     },
     resolve: {
         extensions: ['.js'], //los archivos que webpack podrá leer
+        alias: {
+            '@utils': path.resolve(__dirname, 'src/utils/'),
+            '@templates': path.resolve(__dirname, 'src/templates/'),
+            '@styles': path.resolve(__dirname, 'src/styles/'),
+            '@images': path.resolve(__dirname, 'src/assets/images/'),
+        },
     },
     module: {
         rules: [
