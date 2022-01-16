@@ -6,6 +6,7 @@ const { default: MiniCssExtractPlugin } = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const DotEnv = require('dotenv-webpack');
 
 
 /** @type {import('webpack').Configuration} */ //Añade autocompletado a nuestro archivo de webpack
@@ -83,6 +84,7 @@ module.exports = { //creamos un módulo que se va a exportar
                 },
             ],
         }),
+        new DotEnv(),
     ],
     optimization: {
         minimize: true,
