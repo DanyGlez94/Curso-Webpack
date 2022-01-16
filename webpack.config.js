@@ -7,7 +7,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); //Optimizador CSS
 const TerserPlugin = require('terser-webpack-plugin'); //optimizador JS
 const DotEnv = require('dotenv-webpack');
-
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 /** @type {import('webpack').Configuration} */ //Añade autocompletado a nuestro archivo de webpack
 
@@ -85,6 +85,7 @@ module.exports = { //creamos un módulo que se va a exportar
             ],
         }),
         new DotEnv(),
+        new CleanWebpackPlugin(),
     ],
     optimization: {
         minimize: true,
