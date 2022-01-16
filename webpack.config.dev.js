@@ -17,7 +17,7 @@ module.exports = { //creamos un módulo que se va a exportar
         assetModuleFilename: 'assets/images/[hash][ext][query]',
     },
     mode: 'development',
-    watch: true,
+    watch: false,
     resolve: {
         extensions: ['.js'], //los archivos que webpack podrá leer
         alias: {
@@ -86,4 +86,15 @@ module.exports = { //creamos un módulo que se va a exportar
         }),
         new DotEnv(),
     ],
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'dist'),
+            watch: true,
+        },
+        watchFiles: path.join(__dirname, "./**"),
+        compress: true,
+        historyApiFallback: true,
+        port: 8080,
+        open: true,
+    },
 };
