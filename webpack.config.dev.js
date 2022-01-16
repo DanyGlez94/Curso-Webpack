@@ -19,6 +19,7 @@ module.exports = { //creamos un módulo que se va a exportar
     },
     mode: 'development',
     watch: false,
+    devtool: 'source-map',
     resolve: {
         extensions: ['.js'], //los archivos que webpack podrá leer
         alias: {
