@@ -4,6 +4,8 @@ const path = require('path'); //Para trabajar con archivos y rutas de directorio
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { default: MiniCssExtractPlugin } = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 
 /** @type {import('webpack').Configuration} */ //Añade autocompletado a nuestro archivo de webpack
@@ -12,7 +14,7 @@ module.exports = { //creamos un módulo que se va a exportar
     entry: './src/index.js', //El punto de entrada de nuestra app
     output: { 
         path: path.resolve(__dirname, 'dist'), //Utilizamos el path que declaramos arriba, resolve() nos permite saber dónde se encuentra nuestro proyecto.
-        filename: 'main.js', //Nombre del archivo final
+        filename: '[name].[contenthash].js', //Nombre del archivo final
         assetModuleFilename: 'assets/images/[hash][ext][query]',
     },
     resolve: {
@@ -42,7 +44,7 @@ module.exports = { //creamos un módulo que se va a exportar
                 test: /\.(woff|woff2)$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'assets/fonts/[name][ext][query]', //Indicamos dónde se va a guardar los archivos generados.
+                    filename: 'assets/fonts/[name].[contenthash].[ext][query]', //Indicamos dónde se va a guardar los archivos generados.
                 },
                 // use: { //Esto no lo usamos, porque el loader de fuentes ya viene integrado en Webpack 5
                 //     loader: 'url-loader',
@@ -64,7 +66,9 @@ module.exports = { //creamos un módulo que se va a exportar
             template: './public/index.html',
             filename: './index.html'
         }),
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'assets/[name].[contenthash].css',
+        }),
         new CopyPlugin({ //Hace una copia de las imágenes de la carpeta src/assets/images a dir/assets/images
             patterns: [
                 {
@@ -74,4 +78,8 @@ module.exports = { //creamos un módulo que se va a exportar
             ],
         }),
     ],
+    optimization: {
+        minimize: true,
+        minimizer: [new CssMinimizerPlugin(), new TerserPlugin(),],
+    },
 };
