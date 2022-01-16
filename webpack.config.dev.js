@@ -4,8 +4,6 @@ const path = require('path'); //Para trabajar con archivos y rutas de directorio
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { default: MiniCssExtractPlugin } = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); //Optimizador CSS
-const TerserPlugin = require('terser-webpack-plugin'); //optimizador JS
 const DotEnv = require('dotenv-webpack');
 
 
@@ -18,6 +16,7 @@ module.exports = { //creamos un módulo que se va a exportar
         filename: '[name].[contenthash].js', //Nombre del archivo final
         assetModuleFilename: 'assets/images/[hash][ext][query]',
     },
+    mode: 'development',
     resolve: {
         extensions: ['.js'], //los archivos que webpack podrá leer
         alias: {
@@ -86,8 +85,4 @@ module.exports = { //creamos un módulo que se va a exportar
         }),
         new DotEnv(),
     ],
-    optimization: {
-        minimize: true,
-        minimizer: [new CssMinimizerPlugin(), new TerserPlugin(),],
-    },
 };
